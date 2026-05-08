@@ -24,12 +24,29 @@ def read_titanic_data():
 
     return df.to_dict(orient="records")
 
+@app.get("/titanic/count")
+def read_titanic_count():
+    james = James()
+    count = james.get_count()
+    return {"count": count}
+
+@app.get("/titanic/tree")
+def read_titanic_tree():
+    james = James()
+    tree = james.check_decision_tree_model()
+    return {"tree": tree}
+
 @app.get("/doro/data")
 def read_doro_data():
     director = Director()
     df = director.get_data()
 
     return df.to_dict(orient="records")
+
+@app.get("/titanic/count/survived")
+def read_titanic_survived_count():
+    james = James()
+    return james.get_survived_count()
 
 if __name__ == "__main__":
     import uvicorn
