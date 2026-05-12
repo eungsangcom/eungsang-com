@@ -1,4 +1,3 @@
-import json
 from pathlib import Path
 
 import pandas as pd
@@ -6,7 +5,8 @@ import pandas as pd
 _DATA_DIR = Path(__file__).resolve().parent
 _CSV_PATH = _DATA_DIR / "Titanic-Dataset.csv"
 
-class Walter:
+
+class WalterReader:
     def __init__(self):
         pass
 
@@ -17,14 +17,9 @@ class Walter:
 
     def get_count(self):
         df = pd.read_csv(_CSV_PATH)
-        # 전체 승객 수(전체 행 수) 반환
-        return int(len(df))
+        # 전체 승객 수(행 개수) 반환
+        return int(df.shape[0])
 
-    def get_survived_count(self):
-        df = pd.read_csv(_CSV_PATH)
-        count = df["Survived"].value_counts()
-        return {
-            "total": int(len(df)),
-            "survived": int(count.get(1, 0)),
-            "dead": int(count.get(0, 0))
-        }
+    def get_dataframe(self) -> pd.DataFrame:
+        """학습·검증용 전체 Titanic 데이터프레임."""
+        return pd.read_csv(_CSV_PATH)
